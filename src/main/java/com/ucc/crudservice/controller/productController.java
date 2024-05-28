@@ -1,7 +1,7 @@
 package com.ucc.crudservice.controller;
 
 import com.ucc.crudservice.model.entities.Product;
-import com.ucc.crudservice.service.productService;
+import com.ucc.crudservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class productController {
 
-    private final productService productService;
+    private final ProductService productService;
 
     // get all
     @GetMapping
@@ -28,16 +28,10 @@ public class productController {
     public void newProduct(@RequestBody Product product){
         this.productService.addProduct(product);
     }
-    // get one
-    @GetMapping(path = "/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Product getProductById(@PathVariable Long id){
-        return this.productService.getProductById(id).orElseThrow(() -> new RuntimeException("Product not found"));
-    }
 
     // delete
     @DeleteMapping("/{productId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteProduct(@PathVariable Long productId) {
         System.out.println(productId);
         this.productService.deleteProduct(productId);
